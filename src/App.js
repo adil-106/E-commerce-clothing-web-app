@@ -1,40 +1,19 @@
 import "./App.css"
-import CategoryDirectory from "./components/CategoryDirectory/CategoryDirectory";
+import Home from "./routes/home/Home";
+import {Routes, Route} from "react-router-dom";
+import NavBar from "./routes/navbar/NavBar";
+
 
 function App() {
 
-  const categories = [
-    {
-      "id": 1,
-      "title": "Hats",
-      "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
-    },
-    {
-      "id": 2,
-      "title": "Jackets",
-      "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png"
-    },
-    {
-      "id": 3,
-      "title": "Sneakers",
-      "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
-    },
-    {
-      "id": 4,
-      "title": "Womens",
-      "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
-    },
-    {
-      "id": 5,
-      "title": "Mens",
-      "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
-    }
-  ];
-  
-  return (
-    <div className="App">
-      <CategoryDirectory categories={categories}/>
-    </div>
+  return(
+    <Routes>
+
+      <Route path="/" element={<NavBar/>}>
+        <Route index element={<Home/>}/>
+      </Route>
+    
+    </Routes>
   );
 }
 

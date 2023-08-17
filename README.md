@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installing dependencies
 `npm install sass`
+`npm install react-router-dom`
 
 ## Available Scripts
 
