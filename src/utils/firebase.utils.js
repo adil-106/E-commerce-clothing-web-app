@@ -2,7 +2,7 @@
 import userEvent from "@testing-library/user-event";
 import { initializeApp } from "firebase/app";
 
-import {getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider} from "firebase/auth";
+import {getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, createUserWithEmailAndPassword} from "firebase/auth";
 
 // importing utilities to setup firestor database
 import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
@@ -24,17 +24,18 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Setting up authentication
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth,provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth,googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth,googleProvider);
 
 // Instantiating a Firestore db instance
 export const db = getFirestore();
 
 
 // Creating a user document in firestore db using the authenticated user's details
-export async function createUserDocumentFromAuth(userAuth) {
+export async function createUserDocumentFromAuth(userAuth,additionalInfo={}) {
   
   const userDocRef = doc(db,"users",userAuth.uid); 
   const userSnapshot = await getDoc(userDocRef);
@@ -46,7 +47,8 @@ export async function createUserDocumentFromAuth(userAuth) {
       await setDoc(userDocRef,{
         displayName,
         email,
-        createdAt
+        createdAt,
+        ...additionalInfo
       })
     }
     catch(error){
@@ -54,4 +56,14 @@ export async function createUserDocumentFromAuth(userAuth) {
     }
   }
   return userDocRef;
+}
+
+
+// Authenticating user with email and password signup
+export async function createAuthWithEmailAndPassword(email,password){
+  if(!email || !password){
+    return;
+  } else {
+    return await createUserWithEmailAndPassword(auth,email,password);
+  }
 }
