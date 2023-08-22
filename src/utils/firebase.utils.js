@@ -2,7 +2,7 @@
 import userEvent from "@testing-library/user-event";
 import { initializeApp } from "firebase/app";
 
-import {getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, createUserWithEmailAndPassword} from "firebase/auth";
+import {getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 // importing utilities to setup firestor database
 import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
@@ -66,4 +66,9 @@ export async function createAuthWithEmailAndPassword(email,password){
   } else {
     return await createUserWithEmailAndPassword(auth,email,password);
   }
+}
+
+// Signing User with Email and Password
+export async function signUserInWithEmailAndPassword(email,password){
+  return await signInWithEmailAndPassword(auth,email,password)
 }

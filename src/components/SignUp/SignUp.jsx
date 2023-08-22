@@ -3,6 +3,7 @@ import {createAuthWithEmailAndPassword, createUserDocumentFromAuth} from "../../
 import FormInput from "../FormInput/FormInput";
 
 import "./SignUp.scss";
+import Button from "../Button/Button";
 
 const defaultFormFields = {
     displayName: "",
@@ -53,7 +54,8 @@ function SignUp(){
                 <FormInput label="Email" type="email" name="email" value={email} onChange={handleChange}/>
                 <FormInput label="Password" type="password" name="password" value={password} onChange={handleChange}/>
                 <FormInput label="Confirm Password" type="password" name="confirmPassword" value={confirmPassword} onChange={handleChange}/>
-                <button type="submit">Sign Up</button>
+                <Button type="submit">Sign Up</Button>
+                {/* <button type="submit">Sign Up</button> */}
 
             </form>
         </div>
