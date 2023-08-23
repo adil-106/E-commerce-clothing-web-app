@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {signInWithGooglePopup, createAuthWithEmailAndPassword, createUserDocumentFromAuth, signUserInWithEmailAndPassword} from "../../utils/firebase.utils"
 import FormInput from "../FormInput/FormInput";
-
-
+import { UserContext } from "../../contexts/User";
 import "./SignIn.scss";
 import Button from "../Button/Button";
 
@@ -16,7 +15,9 @@ function SignIn(){
     const [formFields,setFormFields] = useState(defaultFormFields);
     const {email,password} = formFields;
 
-    // console.log(formFields);
+    const {setCurrentUser} = useContext(UserContext);
+
+    
     function handleChange(event){
         const {name,value} = event.target;
         setFormFields({...formFields,[name]:value})
@@ -29,7 +30,9 @@ function SignIn(){
         
         try{
             const response = await signUserInWithEmailAndPassword(email,password);
-            console.log(response);
+
+            // Setting the current user to logged in user using UserContext
+            setCurrentUser(response.user);
         }
         catch(error){
             if(error.code === "auth/wrong-password"){
@@ -50,6 +53,9 @@ function SignIn(){
     async function signInWithGoogle(){
         // authenticating user with google sign-in
         const response = await signInWithGooglePopup();
+
+        // Setting the current user to logged in user using UserContext
+        setCurrentUser(response.user);
 
         // Storing data of the authenticated user in firestore db.
         const userDocRef = await createUserDocumentFromAuth(response.user);  
