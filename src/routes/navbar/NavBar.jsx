@@ -9,12 +9,12 @@ import "./NavBar.scss";
 import { signUserOut } from "../../utils/firebase.utils";
 
 function NavBar() {
-    const {currentUser,setCurrentUser} = useContext(UserContext);
+    const {currentUser} = useContext(UserContext);
 
-    async function handleSignOut(event){
-        await signUserOut();
-        setCurrentUser(null);
-    }
+    // async function handleSignOut(event){
+    //     await signUserOut();
+    //     setCurrentUser(null);
+    // }
     
     return(
         <Fragment>
@@ -28,7 +28,7 @@ function NavBar() {
 
                 <div className="nav-links-container">
                     <Link className="nav-link" to="/shop">SHOP</Link>
-                    {currentUser ? (<span className="nav-link" onClick={handleSignOut}>SIGN OUT</span>) : (<Link className="nav-link" to="/auth">SIGN IN</Link>) }
+                    {currentUser ? (<span className="nav-link" onClick={signUserOut}>SIGN OUT</span>) : (<Link className="nav-link" to="/auth">SIGN IN</Link>) }
                     
                 </div>
 

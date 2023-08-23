@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {signInWithGooglePopup, createAuthWithEmailAndPassword, createUserDocumentFromAuth, signUserInWithEmailAndPassword} from "../../utils/firebase.utils"
 import FormInput from "../FormInput/FormInput";
-import { UserContext } from "../../contexts/User";
+// import { UserContext } from "../../contexts/User";
 import "./SignIn.scss";
 import Button from "../Button/Button";
 
@@ -15,7 +15,7 @@ function SignIn(){
     const [formFields,setFormFields] = useState(defaultFormFields);
     const {email,password} = formFields;
 
-    const {setCurrentUser} = useContext(UserContext);
+    // const {setCurrentUser} = useContext(UserContext);  //-- Now being taken care by onAuthStateChanged
 
     
     function handleChange(event){
@@ -32,7 +32,7 @@ function SignIn(){
             const response = await signUserInWithEmailAndPassword(email,password);
 
             // Setting the current user to logged in user using UserContext
-            setCurrentUser(response.user);
+            // setCurrentUser(response.user); -- Now being taken care by onAuthStateChanged
         }
         catch(error){
             if(error.code === "auth/wrong-password"){
@@ -52,13 +52,12 @@ function SignIn(){
     // Sign In With Google
     async function signInWithGoogle(){
         // authenticating user with google sign-in
-        const response = await signInWithGooglePopup();
+        await signInWithGooglePopup();
 
         // Setting the current user to logged in user using UserContext
-        setCurrentUser(response.user);
+        // setCurrentUser(response.user); -- Now being taken care by onAuthStateChanged
 
-        // Storing data of the authenticated user in firestore db.
-        const userDocRef = await createUserDocumentFromAuth(response.user);  
+         
     }
 
     return(

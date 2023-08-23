@@ -2,7 +2,14 @@
 import userEvent from "@testing-library/user-event";
 import { initializeApp } from "firebase/app";
 
-import {getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {getAuth, 
+  signInWithPopup, 
+  signInWithRedirect, 
+  GoogleAuthProvider, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut,
+  onAuthStateChanged} from "firebase/auth";
 
 // importing utilities to setup firestor database
 import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
@@ -77,4 +84,9 @@ export async function signUserInWithEmailAndPassword(email,password){
 // SignOut user
 export async function signUserOut(){
   await signOut(auth);
+}
+
+// Observable Listener for change in auth
+export function onAuthStateChangedListener(callback){
+  return onAuthStateChanged(auth,callback);
 }
