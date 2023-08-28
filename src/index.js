@@ -6,6 +6,7 @@ import App from './App';
 import { UserProvider } from './contexts/User';
 import reportWebVitals from './reportWebVitals';
 import { ProductsProvider } from './contexts/Products';
+import { CartProvider } from './contexts/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     {/* Enabling the App component to use UserContext */}
       <UserProvider> 
         <ProductsProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
