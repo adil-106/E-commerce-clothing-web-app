@@ -5,6 +5,7 @@ import './index.scss';
 import App from './App';
 import { UserProvider } from './contexts/User';
 import reportWebVitals from './reportWebVitals';
+import { ProductsProvider } from './contexts/Products';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
     <BrowserRouter>
     {/* Enabling the App component to use UserContext */}
       <UserProvider> 
-        <App />
+        <ProductsProvider>
+          <App />
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
